@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework import routers
 from .views import (
     ItemDetailView,
     CheckoutView,
@@ -15,6 +16,7 @@ from .views import (
 )
 from .views import searchbook
 app_name = 'core'
+
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),

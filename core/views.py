@@ -1,16 +1,22 @@
 from django.conf import settings
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import redirect
+from rest_framework import viewsets
+from django.http import Http404
+from rest_framework import status
+from rest_framework.views import APIView
 from django.template.loader import get_template
+from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 # from .utils import render_to_pdf
 from django.db.models import Q
+from rest_framework.parsers import JSONParser
 from django.utils import timezone
 from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
 from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, Customer, UserProfile

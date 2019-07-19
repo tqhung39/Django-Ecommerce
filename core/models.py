@@ -27,7 +27,7 @@ ADDRESS_CHOICES = (
 
 class UserProfile(models.Model):
     user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
     one_click_purchase = models.BooleanField(default=False)
 
@@ -36,6 +36,8 @@ class UserProfile(models.Model):
 
 
 class Item(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
