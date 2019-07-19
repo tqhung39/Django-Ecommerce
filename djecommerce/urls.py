@@ -4,14 +4,22 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     url(r'^api-auth/', include('rest_framework.urls')),
     path('', include('core.urls', namespace='core')),
-    url(r'^api/core/', include(("core.api.urls", 'core-api'), namespace='core-api')),
+    path('api/item/', include(('core.api.item.urls',
+                               'core-api-item'), namespace='core-api-item')),
+    path('api/order/', include(('core.api.order.urls',
+                                'core-api-order'), namespace='core-api-order')),
+    path('api/coupon/', include(('core.api.coupon.urls',
+                                 'core-api-coupon'), namespace='core-api-coupon')),
+    path('api/orderitem/', include(('core.api.orderitem.urls',
+                                    'core-api-orderitem'), namespace='core-api-orderitem')),
+    path('api/user/', include(('core.api.account.urls',
+                               'core-api-account'), namespace='core-api-account')),
 ]
 
 if settings.DEBUG:
