@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
+from rest_framework.routers import DefaultRouter
+from core.api.item import views
 from .views import(
     ItemDetailAPIView,
     ItemCreateAPIView,

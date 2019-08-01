@@ -20,6 +20,7 @@ from rest_framework.parsers import JSONParser
 from django.utils import timezone
 from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
 from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, Customer, UserProfile
+from django.views.generic.edit import FormMixin
 import random
 import string
 import stripe

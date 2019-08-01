@@ -1,5 +1,6 @@
-from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField
+from rest_framework.serializers import ModelSerializer, HyperlinkedIdentityField, SerializerMethodField, HyperlinkedRelatedField
 from core.models import Item
+from rest_framework import serializers
 
 
 class ItemListSerializer(ModelSerializer):
@@ -41,3 +42,9 @@ class ItemCreateUpdateSerializer(ModelSerializer):
     class Meta:
         model = Item
         fields = '__all__'
+
+
+# class ItemSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Item
+#         fields = '__all__'

@@ -1,49 +1,73 @@
 {% extends "base.html" %}
-
+{% block ad %}{% endblock %}
 {% block content %}
+<script>
+  $(document).ready(function () {
+    $("#hide").click(function () {
+      $("p1").hide();
+    });
+    $("#show").click(function () {
+      $("p1").show();
+    });
+  });
+</script>
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-2">
+    <div class="row wow fadeIn">
+      <div class="col-md-5 mb-3">
 
-<main class=" pt-4">
-  <div class="container dark-grey-text mt-5">
-    <!--Content-->
-    <div class="p-1">
+        <img src="{{item.image.url}}" width="300" height="500" alt="">
 
-      <div>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
       </div>
-      <p><strong>Rated by our customer</strong></p>
-      <img src="{{ item.image.url }}">
-      <h1>{{item.title}}</h1>
-      <h3>${{item.price}}</h3>
-      {% comment %} <form class=" d-flex justify-content-left">
-        <!-- Default input -->
-        <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-        <button class="btn btn-primary btn-md my-0 p" type="submit">
-          Add to cart
-          <i class="fas fa-shopping-cart ml-1"></i>
-        </button>
 
-      </form> {% endcomment %}
-      <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
-        Add to cart
-        <i class="fas fa-shopping-cart ml-1"></i>
-      </a>
-      <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
-        Remove from cart
-      </a>
+      <div class="col-md-5 mb-4">
+        <div class="p-4">
 
+          <div class="mb-3">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <p><strong>All reviewed by our customer</strong></p>
+            <span class="badge purple mr-1">
+              <h5>{{ item.get_category_display }}</h5>
+            </span>
+          </div>
+          <h1>{{item.title}}</h1>
+          <p class="lead">
+            {% if item.discount_price %}
+            <span class="mr-1">
+              <del>${{ item.price }}</del>
+            </span>
+            <span>${{ item.discount_price }}</span>
+            {% else %}
+            <span>${{ item.price }}</span>
+            {% endif %}
+          </p>
+          <p1>{{item.description}}</p1>
+          <p><a id="hide"><strong>> Hide</strong></a></p>
+          <p><a id="show"><strong>
+                < Show</strong> </a> </p> {% comment %} <form class="d-flex justify-content-left">
+                  <!-- Default input -->
+                  <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+                  <button class="btn btn-primary btn-md my-0 p" type="submit">
+                    Add to cart
+                    <i class="fas fa-shopping-cart ml-1"></i>
+                  </button>
+
+                  </form> {% endcomment %}
+                  <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+                    Add to cart
+                    <i class="fas fa-shopping-cart ml-1"></i>
+                  </a>
+                  <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p">
+                    Remove from cart
+                  </a>
+        </div>
+      </div>
     </div>
-    <!--Content-->
-  </div>
-  <!--Grid column-->
-
-  </div>
-  <!--Grid row-->
-
-  <hr>
+    <hr>
   </div>
 </main>
 

@@ -20,6 +20,8 @@ urlpatterns = [
                                     'core-api-orderitem'), namespace='core-api-orderitem')),
     path('api/user/', include(('core.api.account.urls',
                                'core-api-account'), namespace='core-api-account')),
+    path('api/cart/', include(('core.api.cart.urls',
+                               'core-api-cart'), namespace='core-api-cart')),
 ]
 
 if settings.DEBUG:

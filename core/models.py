@@ -6,6 +6,7 @@ from django_countries.fields import CountryField
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
 CATEGORY_CHOICES = (
@@ -186,3 +187,10 @@ def userprofile_receiver(sender, instance, created, *args, **kwargs):
 
 
 post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.SET_NULL, blank=True, null=True)
+    content = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)

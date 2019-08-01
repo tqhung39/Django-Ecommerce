@@ -12,7 +12,7 @@ from .paginations import OrderLimitOffsetPagination, OrderPageNumberPagination
 class OrderListAPIView(ListAPIView):
     serializer_class = OrderListSerializer
     filter_backends = [SearchFilter, OrderingFilter]
-    search_fields = ['shipping_address', 'billing_address']
+    search_fields = ['user', 'shipping_address']
     pagination_class = OrderLimitOffsetPagination
 
     def get_queryset(self, *args, **kwargs):
@@ -20,8 +20,8 @@ class OrderListAPIView(ListAPIView):
         query = self.request .GET.get("q")
         if query:
             queryset_list = queryset_list.filter(
-                Q(shipping_address__icontains=query) |
-                Q(billing_address__icontains=query)
+                Q(user__icontains=query) |
+                Q(shipping_address__icontains=query)
             ).distinct()
         return queryset_list
 
@@ -29,20 +29,20 @@ class OrderListAPIView(ListAPIView):
 class OrderDetailAPIView(RetrieveAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderDetailSerializer
-    lookup_field = 'shipping_address'
+    lookup_field = 'user'
 
 
 class OrderUpdateAPIView(RetrieveUpdateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderCreateUpdateSerializer
-    lookup_field = 'shipping_address'
+    lookup_field = 'user'
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class OrderDeleteAPIView(DestroyAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderDetailSerializer
-    lookup_field = 'shipping_address'
+    lookup_field = 'user'
 
 
 class OrderCreateAPIView(CreateAPIView):

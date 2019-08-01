@@ -3,7 +3,7 @@ from core.models import Item
 from .serializers import ItemListSerializer, ItemDetailSerializer, ItemCreateUpdateSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from django.db.models import Q
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from .permissions import IsOwnerorReadOnly
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
@@ -50,3 +50,9 @@ class ItemCreateAPIView(CreateAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemCreateUpdateSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
+
+
+# class ItemViewSet(viewsets.ViewSet):
+#     def list(self, request):
+#         queryset = Item.objects.all()
+#         serializer_class = ItemSerializer

@@ -12,11 +12,11 @@ from .views import(
 urlpatterns = [
     url(r'^$', OrderListAPIView.as_view(), name='list'),
     url(r'^create/$', OrderCreateAPIView.as_view(), name='create'),
-    url(r'^(?P<shipping_address>[\w-]+)/$',
+    url(r'^(?P<user>[\w-]+)/$',
         OrderDetailAPIView.as_view(), name='detail'),
-    url(r'^(?P<shipping_address>[\w-]+)/edit/$',
+    url(r'^(?P<user>[\w-]+)/edit/$',
         OrderUpdateAPIView.as_view(), name='update'),
-    url(r'^(?P<shipping_address>[\w-]+)/delete/$',
+    url(r'^(?P<user>[\w-]+)/delete/$',
         OrderDeleteAPIView.as_view(), name='delete'),
 
 ]
