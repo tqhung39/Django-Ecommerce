@@ -1,6 +1,6 @@
 from django.urls import path, include
 from . import views
-from rest_framework import routers
+from django.conf.urls import url
 from .views import (
     ItemDetailView,
     CheckoutView,
@@ -31,5 +31,9 @@ urlpatterns = [
     path('request-refund/', RequestRefundView.as_view(), name='request-refund'),
     path('payment/<payment_option>/', PaymentView.as_view(), name='payment'),
     path('search/', views.searchbook, name='search'),
-    # path('invoice/', GeneratePDF.as_view(), name='invoice')
+    path('review/', views.review_list, name='review_list'),
+    url(r'^review/(?P<item_id>[0-9]+)/add_review/$',
+        views.add_review, name='add_review'),
+    # url(r'^review/(?P<review_id>[0-9]+)/$', views.review_detail, name='review_detail'),
+
 ]

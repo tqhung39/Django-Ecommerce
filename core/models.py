@@ -189,8 +189,18 @@ def userprofile_receiver(sender, instance, created, *args, **kwargs):
 post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)
 
 
-class Comment(models.Model):
+class Review(models.Model):
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+    )
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    pub_date = models.DateTimeField('date_published')
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.SET_NULL, blank=True, null=True)
-    content = models.TextField()
-    date = models.DateTimeField(auto_now_add=True)
+    comment = models.CharField(max_length=200)
+    rating = models.IntegerField(choices=RATING_CHOICES)
+    image = models.ImageField(blank=True)

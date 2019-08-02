@@ -18,8 +18,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from rest_framework.parsers import JSONParser
 from django.utils import timezone
-from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm
-from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, Customer, UserProfile
+from .forms import CheckoutForm, CouponForm, RefundForm, PaymentForm, ReviewForm
+from .models import Item, OrderItem, Order, Address, Payment, Coupon, Refund, Customer, UserProfile, Review
 from django.views.generic.edit import FormMixin
 import random
 import string
@@ -373,9 +373,10 @@ class OrderSummaryView(LoginRequiredMixin, View):
             return redirect("/")
 
 
-class ItemDetailView(DetailView):
+class ItemDetailView(FormMixin, DetailView):
     model = Item
     template_name = "product.html"
+    form_class = ReviewForm
 
 
 @login_required
@@ -550,34 +551,29 @@ def searchbook(request):
         return render(request, "search.html")
 
 
-# class GeneratePDF(View):
-#     def get(self, request, *args, **kwargs):
-#         orderitem = OrderItem.objects.all()
-#         order = Order.objects.all()
-#         id = order[0].id
-#         item = orderitem[0].item.title
-#         quantity = orderitem[0].quantity
-#         price = orderitem[0].item.price
-#         discount_price = orderitem[0].item.discount_price
-#         total = orderitem[0].get_final_price()
-#         template = get_template('invoice.html')
-#         context = {
-#             "invoice_id": id,
-#             "item": item,
-#             "quantity": quantity,
-#             "price": price,
-#             "discount_price": discount_price,
-#             "total": total,
-#         }
-#         html = template.render(context)
-#         pdf = render_to_pdf('invoice.html', context)
-#         if pdf:
-#             response = HttpResponse(pdf, content_type='application/pdf')
-#             filename = "Invoice_%s.pdf" % ("12341231")
-#             content = "inline; filename='%s'" % (filename)
-#             download = request.GET.get("download")
-#             if download:
-#                 content = "attachment; filename='%s'" % (filename)
-#             response['Content-Disposition'] = content
-#             return response
-#         return HttpResponse("Not found")
+def review_list(request):
+    latest_review_list = Review.objects.order_by('-pub_date')[:9]
+    context = {'latest_review_list': latest_review_list}
+    return render(request, "review_list.html", context)
+
+
+@login_required
+def add_review(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    form = ReviewForm(request.POST)
+    if form.is_valid():
+        rating = form.cleaned_data['rating']
+        comment = form.cleaned_data['comment']
+        user = form.cleaned_data['user']
+        image = form.cleaned_data['image']
+        review = Review()
+        review.item = item
+        review.user = user
+        review.rating = rating
+        review.comment = comment
+        review.pub_date = datetime.datetime.now()
+        review.image = image
+        review.save()
+        return HttpResponseRedirect(reverse('core:home', args=(slug)))
+
+    return render(request, 'product.html', {'item': item, 'form': form})

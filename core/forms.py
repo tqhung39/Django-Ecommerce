@@ -1,8 +1,8 @@
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-from .models import Comment
-
+from .models import Review
+from django.forms import ModelForm, Textarea
 PAYMENT_CHOICES = (
     ('S', 'Stripe'),
     ('P', 'PayPal')
@@ -62,3 +62,12 @@ class PaymentForm(forms.Form):
     stripeToken = forms.CharField(required=False)
     save = forms.BooleanField(required=False)
     use_default = forms.BooleanField(required=False)
+
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['user', 'rating', 'comment', 'image']
+        widgets = {
+            'comment': Textarea(attrs={'cols': 40, 'rows': 15})
+        }

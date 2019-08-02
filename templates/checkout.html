@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-
+{% block ad %}{% endblock %}
 {% block content %}
 
 <main>
@@ -13,43 +13,43 @@
             {% csrf_token %}
             <h3>Basic information:</h3>
             <div class="md-form mb-5">
+              <p>First Name</p>
               <input type='text' placeholder='hung' id='first_name' name='first_name' class='form-control' />
-              <label for="first_name" class="">First Name</label>
             </div>
             <div class="md-form mb-5">
+              <p>Last Name</p>
               <input type='text' placeholder='tran' id='last_name' name='last_name' class='form-control' />
-              <label for="last_name" class="">Last Name</label>
             </div>
             <div class="md-form mb-5">
+              <p>Email</p>
               <input type='text' placeholder='hung@gmail.com' id='email' name='email' class='form-control' />
-              <label for="email" class="">Email</label>
             </div>
             <h3>Shipping address:</h3>
 
             <div class='hideable_shipping_form'>
 
               <div class="md-form mb-5">
+                <p>Address</p>
                 <input type='text' placeholder='1234 Main St' id='shipping_address' name='shipping_address'
                   class='form-control' />
-                <label for="shipping_address" class="">Address</label>
               </div>
 
               <div class="md-form mb-5">
+                <p>Address 2 (optional)</p>
                 <input type='text' placeholder='Apartment or suite' id='shipping_address2' name='shipping_address2'
                   class='form-control' />
-                <label for="shipping_address2" class="">Address 2 (optional)</label>
               </div>
 
               <div class="row">
                 <div class="col-lg-4 col-md-12 mb-4">
-                  <label for="country">Country</label>
+                  <p>Country</p>
                   {{ form.shipping_country }}
                   <div class="invalid-feedback">
                     Please select a valid country.
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-4">
-                  <label for="shipping_zip">Zip</label>
+                  <p>Zip</p>
                   <input type='text' placeholder='Zip code' id='shipping_zip' name='shipping_zip'
                     class='form-control' />
                   <div class="invalid-feedback">
@@ -86,20 +86,20 @@
 
             <div class='hideable_billing_form'>
               <div class="md-form mb-5">
+                <p>Address</p>
                 <input type='text' placeholder='1234 Main St' id='billing_address' name='billing_address'
                   class='form-control' />
-                <label for="billing_address" class="">Address</label>
               </div>
 
               <div class="md-form mb-5">
+                <p>Address 2 (optional)</p>
                 <input type='text' placeholder='Apartment or suite' id='billing_address2' name='billing_address2'
                   class='form-control' />
-                <label for="billing_address2" class="">Address 2 (optional)</label>
               </div>
 
               <div class="row">
                 <div class="col-lg-4 col-md-12 mb-4">
-                  <label for="country">Country</label>
+                  <p>Country</p>
                   {{ form.billing_country }}
                   <div class="invalid-feedback">
                     Please select a valid country.
@@ -107,7 +107,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6 mb-4">
-                  <label for="billing_zip">Zip</label>
+                  <p>Zip</p>
                   <input type='text' placeholder='Zip code' id='billing_zip' name='billing_zip' class='form-control' />
                   <div class="invalid-feedback">
                     Zip code required.
