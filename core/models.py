@@ -126,6 +126,13 @@ class Order(models.Model):
         return total
 
 
+class OrderSummary(Order):
+    class Meta:
+        proxy = True
+        verbose_name = 'Order Summary'
+        verbose_name_plural = 'Orders Summary'
+
+
 class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)

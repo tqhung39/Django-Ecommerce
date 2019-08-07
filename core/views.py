@@ -558,8 +558,8 @@ def review_list(request):
 
 
 @login_required
-def add_review(request, slug):
-    item = get_object_or_404(Item, slug=slug)
+def add_review(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
     form = ReviewForm(request.POST)
     if form.is_valid():
         rating = form.cleaned_data['rating']
@@ -574,6 +574,6 @@ def add_review(request, slug):
         review.pub_date = datetime.datetime.now()
         review.image = image
         review.save()
-        return HttpResponseRedirect(reverse('core:home', args=(slug)))
+        return HttpResponseRedirect(reverse('core:product', args=(item.id,)))
 
     return render(request, 'product.html', {'item': item, 'form': form})

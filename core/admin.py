@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, UserProfile, Customer, Review
+from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, UserProfile, Customer, Review, OrderSummary
 
 
 def make_refund_accepted(modeladmin, request, queryset):
@@ -60,6 +60,11 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ('item', 'rating', 'user', 'comment', 'pub_date')
     list_filter = ('pub_date', 'user')
     search_fields = ['comment']
+
+
+@admin.register(OrderSummary)
+class OrderSummaryAdmin(admin.ModelAdmin):
+    change_list_template = 'order_summary_change_list.html'
 
 
 admin.site.register(Item)

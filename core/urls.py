@@ -12,6 +12,7 @@ from .views import (
     PaymentView,
     AddCouponView,
     RequestRefundView,
+    add_review,
     # GeneratePDF
 )
 from .views import searchbook
@@ -32,8 +33,7 @@ urlpatterns = [
     path('payment/<payment_option>/', PaymentView.as_view(), name='payment'),
     path('search/', views.searchbook, name='search'),
     path('review/', views.review_list, name='review_list'),
-    url(r'^review/(?P<item_id>[0-9]+)/add_review/$',
-        views.add_review, name='add_review'),
+    path('product/<slug>/add-review', add_review, name='add_review'),
     # url(r'^review/(?P<review_id>[0-9]+)/$', views.review_detail, name='review_detail'),
 
 ]

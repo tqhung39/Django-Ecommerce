@@ -67,7 +67,7 @@ class PaymentForm(forms.Form):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = ['user', 'rating', 'comment', 'image']
+        fields = ['rating', 'comment', 'image']
         widgets = {
             'comment': Textarea(attrs={'cols': 40, 'rows': 15})
         }
