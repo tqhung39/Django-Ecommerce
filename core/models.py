@@ -126,13 +126,6 @@ class Order(models.Model):
         return total
 
 
-class OrderSummary(Order):
-    class Meta:
-        proxy = True
-        verbose_name = 'Order Summary'
-        verbose_name_plural = 'Orders Summary'
-
-
 class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
@@ -211,3 +204,10 @@ class Review(models.Model):
     comment = models.CharField(max_length=200)
     rating = models.IntegerField(choices=RATING_CHOICES)
     image = models.ImageField(blank=True)
+
+
+class ReviewSummary(Review):
+    class Meta:
+        proxy = True
+        verbose_name = 'Review Summary'
+        verbose_name_plural = 'Reviews Summary'
