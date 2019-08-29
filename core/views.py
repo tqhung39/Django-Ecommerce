@@ -558,22 +558,11 @@ def review_list(request):
 
 
 @login_required
-def add_review(request, item_id):
-    item = get_object_or_404(Item, pk=item_id)
-    form = ReviewForm(request.POST)
-    if form.is_valid():
-        rating = form.cleaned_data['rating']
-        comment = form.cleaned_data['comment']
-        user = form.cleaned_data['user']
-        image = form.cleaned_data['image']
-        review = Review()
-        review.item = item
-        review.user = user
-        review.rating = rating
-        review.comment = comment
-        review.pub_date = datetime.datetime.now()
-        review.image = image
-        review.save()
-        return HttpResponseRedirect(reverse('core:product', args=(item.id,)))
-
-    return render(request, 'product.html', {'item': item, 'form': form})
+class AddReviewView(View):
+    def post(self, *args, **kwargs):
+        form = ReviewForm(self.request.POST or None)
+        if form.is_valid():
+            rating = form.cleaned_data.get('rating')
+            comment = form.cleaned_data.get('comment')
+            image = form.cleaned_data('image')
+        return (request, "product.html", context)

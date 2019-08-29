@@ -50,9 +50,7 @@
           <div class="card">
 
             <div class="view overlay">
-              {% comment %} <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg"
-                class="card-img-top" {% endcomment %} <img src="{{ item.image.url }}" class="card-img-top" width="300"
-                height="400">
+              <img src="{{ item.image.url }}" class="card-img-top" width="300" height="400">
               <a href="{{ item.get_absolute_url }}">
                 <div class="mask rgba-white-slight"></div>
               </a>
@@ -64,10 +62,11 @@
               </a>
               <h5>
                 <strong>
-                  <a href="{{ item.get_absolute_url }}" class="dark-grey-text">{{ item.title }}
-                    <p></p>
-                    <span class="badge badge-pill {{ item.get_label_display }}-color">NEW</span>
-                  </a>
+                  <a href="{{ item.get_absolute_url }}" class="dark-grey-text">
+                    <h6><strong>{{ item.title }}</h6></strong>
+                <p></p>
+                <span class="badge badge-pill {{ item.get_label_display }}-color">NEW</span>
+                </a>
                 </strong>
               </h5>
 
