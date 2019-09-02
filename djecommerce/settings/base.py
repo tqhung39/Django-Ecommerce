@@ -1,5 +1,6 @@
 import os
 from decouple import config
+import django_heroku
 
 BASE_DIR = os.path.dirname(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))))
@@ -93,3 +94,4 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
     'PAGE_SIZE': 10
 }
+django_heroku.settings(locals())

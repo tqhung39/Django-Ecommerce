@@ -562,7 +562,7 @@ class AddReviewView(View):
     def post(self, *args, **kwargs):
         form = ReviewForm(self.request.POST or None)
         if form.is_valid():
-            rating = form.cleaned_data.get('rating')
-            comment = form.cleaned_data.get('comment')
-            image = form.cleaned_data('image')
-        return (request, "product.html", context)
+            try:
+                rating = form.cleaned_data.get('rating')
+                comment = form.cleaned_data.get('comment')
+                image = form.cleaned_data('image')
